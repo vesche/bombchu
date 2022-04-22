@@ -45,6 +45,8 @@ def main(
 ):
     if not stdin:
         return
+    if newlines:
+        output = '\n'
 
     data = stdin.split(delimiter)
 
@@ -61,8 +63,6 @@ def main(
     if reverse:
         data = data[::-1]
 
-    if newlines:
-        output = '\n'
     if output:
         data = output.join(list(map(str, data)))
     elif splunk:
