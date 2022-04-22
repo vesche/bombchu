@@ -1,14 +1,15 @@
 # bombchu
 
-Simple data manipulation tool with a bang.
+Simple data manipulation tool with a bang, inspired by [qu](https://github.com/jayswan/qu).
 
 ## Install
 
-<img src="bombchu.png" align="left">
+<img src="https://i.imgur.com/5XH9tQ2.png" align="left">
 
 ```
-pip install bombchu --user
+pip3 install bombchu --user
 ```
+* Ensure that where Python cli tools are installed on your system is in your PATH.
 
 ## Usage
 
@@ -21,7 +22,7 @@ pip install bombchu --user
 ❯ echo "d,d,b,a,a,b,c,d,d,e" | bombchu -d',' -s -u
 ['a', 'b', 'c', 'd', 'e']
 
-❯ # now output it with a delimiter 
+❯ # now output it separated by semi-colons
 ❯ echo "d,d,b,a,a,b,c,d,d,e" | bombchu -d',' -s -u -o'; '
 a; b; c; d; e
 
@@ -30,11 +31,11 @@ a; b; c; d; e
 start_time,ip,port
 "2022-04-10 06:00:10",10.13.37.42,51111
 
-❯ # let's extract all the unique ips and put them on new lines
-❯ cat foo.csv | bombchu -c ip -u -n
-10.22.22.11
-10.44.44.22
-10.13.37.42
+❯ # let's extract all the unique ips and put them on new lines defanged
+❯ cat foo.csv | bombchu -c ip -u -n -df
+10[.]44[.]44[.]22
+10[.]13[.]37[.]42
+10[.]22[.]22[.]11
 
 ❯ # i gotta put this data in to splunk now in term format
 ❯ cat foo.csv | bombchu -c ip -u -t

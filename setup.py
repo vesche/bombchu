@@ -10,23 +10,23 @@ with open(os.path.join(directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='bombchu',
     py_modules=['bombchu'],
-    version='0.1.0',
-    description='make things go boom',
+    version='0.1.1',
+    description='Simple data manipulation tool with a bang.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    license="Unlicense",
+    license='Unlicense',
     url='https://github.com/vesche/bombchu',
     author='Austin Jackson',
     author_email='vesche@protonmail.com',
     install_requires=['click', 'nothoney'],
     entry_points={
-        "console_scripts": [
-            "bombchu = bombchu:main",
+        'console_scripts': [
+            'bombchu = bombchu:main',
         ]
     },
     classifiers=[
-        "Development Status :: 1 - Planning",
-        "License :: Public Domain",
-        "Programming Language :: Python :: 3"
+        'Development Status :: 3 - Alpha',
+        'License :: Public Domain',
+        'Programming Language :: Python :: 3'
     ]
 )
