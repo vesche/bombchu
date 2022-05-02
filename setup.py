@@ -10,7 +10,7 @@ with open(os.path.join(directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='bombchu',
     py_modules=['bombchu'],
-    version='0.1.2',
+    version='0.1.3',
     description='Simple data manipulation tool with a bang.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -25,7 +25,7 @@ setup(
         ]
     },
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'License :: Public Domain',
         'Programming Language :: Python :: 3'
     ]

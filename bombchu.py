@@ -5,8 +5,9 @@ import sys
 import json
 import click
 import nothoney
+import ipaddress
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 stdin = None
 if not sys.stdin.isatty():
@@ -36,6 +37,7 @@ refang_str = lambda s: s.replace('[.]', '.').replace('hxxp', 'http')
 @click.option(      '--rm',        required=False)
 @click.option(      '--rml',       required=False)
 @click.option(      '--rmr',       required=False)
+@click.option(      '--sips',      is_flag=True)
 @click.option(      '--splunk',    is_flag=True)
 @click.option(      '--term',      is_flag=True)
 def main(
@@ -59,6 +61,7 @@ def main(
     rm,
     rml,
     rmr,
+    sips,
     splunk,
     term,
 ):
@@ -75,11 +78,11 @@ def main(
         output = '\n'
 
     if csv_in:
-        data = [row[csv_in] for row in csv.DictReader(stdin.splitlines())]
+        data = [','.join(map(str, [row[i] for i in csv_in.split(',')])) for row in csv.DictReader(stdin.splitlines())]
     elif json_in:
         data = nothoney.eat(json.loads(stdin), json_in)
     elif json_log:
-        data = [json.loads(log)[json_log] for log in stdin.splitlines()]
+        data = [','.join(map(str, [json.loads(log)[i] for i in json_log.split(',')])) for log in stdin.splitlines()]
     elif python:
         data = ast.literal_eval(stdin)
     else:
@@ -89,14 +92,16 @@ def main(
         data = list(set(data))
     if sort:
         data = sorted(data)
+    if sips:
+        data = list(map(str, sorted(ipaddress.ip_address(i) for i in data)))
     if reverse:
         data = data[::-1]
     if rm:
-        data = [i.strip(rm) for i in data]
+        data = [i.removeprefix(rm).removesuffix(rm) for i in data]
     if rml:
-        data = [i.lstrip(rml) for i in data]
+        data = [i.removeprefix(rml) for i in data]
     if rmr:
-        data = [i.rstrip(rmr) for i in data]
+        data = [i.removesuffix(rmr) for i in data]
     if add:
         data = [f'{add}{i}{add}' for i in data]
     if addl:

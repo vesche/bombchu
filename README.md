@@ -31,11 +31,11 @@ a; b; c; d; e
 start_time,ip,port
 "2022-04-10 06:00:10",10.13.37.42,51111
 
-❯ # let's extract all the unique ips and put them on new lines defanged
-❯ cat foo.csv | bombchu -c ip -u -n --defang
-10[.]44[.]44[.]22
+❯ # let's extract all the unique ips sorted and put them on new lines defanged
+❯ cat foo.csv | bombchu -c ip -u -n --defang --sips
 10[.]13[.]37[.]42
 10[.]22[.]22[.]11
+10[.]44[.]44[.]22
 
 ❯ # i gotta put this data in to splunk now in term format
 ❯ cat foo.csv | bombchu -c ip -u --term
@@ -73,6 +73,13 @@ start_time,ip,port
 ❯ # let's see the users in these logs
 ❯ cat foo.log | bombchu -l name -o ', '
 joe, bob, bob, bob, bob, john, john, bob, bob, susan, susan, bob
+
+❯ # now i need unique users and ids next to each other
+❯ cat foo.log | bombchu -l id,name -n -s -u
+1337,bob
+1337,john
+1337,susan
+4242,joe
 
 ❯ # i need these sorted unique and ready to go into splunk
 ❯ cat foo.log | bombchu -l name -s -u --splunk
