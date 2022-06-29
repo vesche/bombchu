@@ -41,6 +41,7 @@ refang_str = lambda s: s.replace('[.]', '.').replace('hxxp', 'http')
 @click.option(      '--sips',      is_flag=True)
 @click.option(      '--splunk',    is_flag=True)
 @click.option(      '--term',      is_flag=True)
+@click.option(      '--up',        is_flag=True)
 def main(
     csv_in,
     delimiter,
@@ -66,6 +67,7 @@ def main(
     sips,
     splunk,
     term,
+    up,
 ):
     if version or not stdin:
         print(f'v{__version__}, https://github.com/vesche/bombchu')
@@ -94,6 +96,8 @@ def main(
         data = list(set(data))
     if low:
         data = [i.lower() for i in data]
+    if up:
+        data = [i.upper() for i in data]
     if sort:
         data = sorted(data)
     if sips:
