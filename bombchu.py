@@ -7,7 +7,7 @@ import click
 import nothoney
 import ipaddress
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 stdin = None
 if not sys.stdin.isatty():
@@ -33,6 +33,7 @@ refang_str = lambda s: s.replace('[.]', '.').replace('hxxp', 'http')
 @click.option(      '--addr',      required=False)
 @click.option(      '--copy',      is_flag=True)
 @click.option(      '--defang',    is_flag=True)
+@click.option(      '--low',       is_flag=True)
 @click.option(      '--refang',    is_flag=True)
 @click.option(      '--rm',        required=False)
 @click.option(      '--rml',       required=False)
@@ -57,6 +58,7 @@ def main(
     addr,
     copy,
     defang,
+    low,
     refang,
     rm,
     rml,
@@ -90,6 +92,8 @@ def main(
 
     if uniq:
         data = list(set(data))
+    if low:
+        data = [i.lower() for i in data]
     if sort:
         data = sorted(data)
     if sips:
